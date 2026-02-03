@@ -12,7 +12,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// adiciona isso:
 app.MapLoginRoute();
+app.MapConversationRoute();
 
 app.Run();
