@@ -19,11 +19,11 @@ public static class ConversationRoute
         return int.TryParse(values.ToString(), out userId) && userId > 0;
     }
 
+
     public static IEndpointRouteBuilder MapConversationRoute(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/auth");
 
-        // GET /auth/conversations
         group.MapGet("/conversations", async (HttpContext ctx) =>
         {
             if (!TryGetUserId(ctx, out var userId))
@@ -33,7 +33,6 @@ public static class ConversationRoute
             {
                 var conversations = await ConversationService.ListConversationsAsync(userId);
 
-                // Se ListConversationsAsync retorna List<(int id, DateTime createdAt)>
                 var dto = conversations.ConvertAll(c => new ConversationDto(c.id, c.createdAt));
 
                 return Results.Json(new { ok = true, conversations = dto });
@@ -44,7 +43,7 @@ public static class ConversationRoute
             }
         });
 
-        // POST /auth/conversations
+
         group.MapPost("/conversations", async (HttpContext ctx, CreateConversationRequest body) =>
         {
             if (!TryGetUserId(ctx, out var userId))
