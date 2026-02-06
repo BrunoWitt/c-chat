@@ -12,13 +12,12 @@ namespace Repository
             if (userId <= 0) throw new ArgumentException("userId inválido");
 
             var safeLimit = (limit > 0 && limit <= 200) ? limit : 50;
-
             var messages = new List<Message>();
 
             await using var connection = Databaseconnection.GetConnection();
             await connection.OpenAsync();
 
-            //Validação se participa da conversa
+            // valida participante
             const string checkMemberSql = @"
                 SELECT 1
                 FROM conversation_participants
@@ -32,7 +31,6 @@ namespace Repository
                 checkCmd.Parameters.AddWithValue("@userId", userId);
 
                 var memberResult = await checkCmd.ExecuteScalarAsync();
-
                 if (memberResult == null || memberResult == DBNull.Value)
                     throw new UnauthorizedAccessException("Sem acesso a esta conversa");
             }
@@ -66,19 +64,14 @@ namespace Repository
                     var message = new Message
                     {
                         Id = reader.GetInt64(reader.GetOrdinal("id")),
-                        ConversationId = reader.IsDBNull(reader.GetOrdinal("conversation_id"))
-                            ? null
-                            : reader.GetInt64(reader.GetOrdinal("conversation_id")),
-
+                        ConversationId = reader.GetInt64(reader.GetOrdinal("conversation_id")),
                         SenderId = reader.GetInt64(reader.GetOrdinal("sender_id")),
                         SenderName = reader.GetString(reader.GetOrdinal("sender_name")),
                         Content = reader.GetString(reader.GetOrdinal("content")),
                         CreatedAt = reader.GetFieldValue<DateTimeOffset>(reader.GetOrdinal("created_at")),
-
                         EditedAt = reader.IsDBNull(reader.GetOrdinal("edited_at"))
                             ? null
                             : reader.GetFieldValue<DateTimeOffset>(reader.GetOrdinal("edited_at")),
-
                         DeletedAt = reader.IsDBNull(reader.GetOrdinal("deleted_at"))
                             ? null
                             : reader.GetFieldValue<DateTimeOffset>(reader.GetOrdinal("deleted_at")),
@@ -106,7 +99,7 @@ namespace Repository
 
             const string memberSql = @"
                 SELECT 1
-                FROM conversation_members
+                FROM conversation_participants
                 WHERE conversation_id = @conversationId AND user_id = @userId
                 LIMIT 1;
             ";

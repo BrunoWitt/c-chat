@@ -1,5 +1,6 @@
 using Models;
 using Repository;
+using Backend.Realtime;
 
 namespace Backend.Services
 {
@@ -12,11 +13,14 @@ namespace Backend.Services
         }
 
 
-        public static async Task<(int id, int conversationId, int senderId, string content, DateTime createdAt)>
-        CreateConversationMessage(int conversationId, int userId, string content)
+        public static async Task<(int id, int conversationId, int senderId, string content, DateTime createdAt)> CreateConversationMessage(int conversationId, int userId, string content, ChatNotifier notifier)
         {
             var repo = new MessageRepository();
-            return await repo.CreateConversationMessageDB(conversationId, userId, content);
+            var message = await repo.CreateConversationMessageDB(conversationId, userId, content);
+            
+            await notifier.NotifyNewMessage(conversationId, message);
+
+            return message;
         }
     }
 }

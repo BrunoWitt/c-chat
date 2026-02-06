@@ -13,16 +13,15 @@ namespace User_repository
             using var connection = Databaseconnection.GetConnection();
             connection.Open();
 
-            var query = "SELECT Id, Nome FROM users";
+            const string query = "SELECT id, name FROM users ORDER BY name ASC;";
             using var command = new NpgsqlCommand(query, connection);
-            
-            using var reader = command.ExecuteReader();
 
+            using var reader = command.ExecuteReader();
             while (reader.Read())
             {
                 var user = new User
                 {
-                    Id = reader.GetInt32(0),
+                    Id = reader.GetInt64(0),
                     Name = reader.GetString(1)
                 };
 

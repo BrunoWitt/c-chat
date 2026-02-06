@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Backend.Services;
+using Backend.Realtime;
 
 namespace Backend.Routes
 {
@@ -47,14 +48,14 @@ namespace Backend.Routes
             int id,
             CreateMessageRequest request,
             HttpContext http,
-            CancellationToken ct)
+            ChatNotifier notifier)
         {
             try
             {
                 if (!TryGetUserId(http, out var userId))
                     return Results.Unauthorized();
 
-                var message = await MessageService.CreateConversationMessage(id, userId, request?.Content ?? "");
+                var message = await MessageService.CreateConversationMessage(id, userId, request?.Content ?? "", notifier);
 
                 return Results.Ok(new { ok = true, message });
             }
