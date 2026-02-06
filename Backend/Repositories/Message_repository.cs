@@ -5,7 +5,7 @@ using Models;
 namespace Repository
 {
     internal class MessageRepository
-    {
+        {
         public async Task<List<Message>> listConversationMessagesDB(int conversationId, int userId, int limit = 50)
         {
             if (conversationId <= 0) throw new ArgumentException("conversationId inválido");

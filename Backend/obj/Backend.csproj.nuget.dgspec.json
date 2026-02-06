@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bruno.witt\\Documents\\personal\\c#chat\\Backend\\Backend.csproj": {}
+    "C:\\Users\\bruno.witt\\Documents\\personal\\cschat\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bruno.witt\\Documents\\personal\\c#chat\\Backend\\Backend.csproj": {
+    "C:\\Users\\bruno.witt\\Documents\\personal\\cschat\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bruno.witt\\Documents\\personal\\c#chat\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Users\\bruno.witt\\Documents\\personal\\cschat\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\bruno.witt\\Documents\\personal\\c#chat\\Backend\\Backend.csproj",
+        "projectPath": "C:\\Users\\bruno.witt\\Documents\\personal\\cschat\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\bruno.witt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bruno.witt\\Documents\\personal\\c#chat\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\bruno.witt\\Documents\\personal\\cschat\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bruno.witt\\AppData\\Roaming\\NuGet\\NuGet.Config"
